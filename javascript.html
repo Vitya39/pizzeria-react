@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript CRUD</title>
+    <link rel="stylesheet" href="pizzaaaa.css">
+</head>
+<body>
+	<h1><center>Pizzáink</center></h1>
+	<hr>
+	<div class="pizza-form">
+		<form onsubmit="event.preventDefault();onFormSubmit();">
+			<div>
+				<label>Megnevezés</label><label class="validation-error hide" id="fullNameValidationError">Kötelező.</label>
+				<input type="text" name="name" id="name">
+			</div>
+			<div>
+				<label>Kategória</label>
+				<select name="kategoria" id="kategoria">
+					<option value="apród">Apród</option>
+					<option value="főispán">Főispán</option>
+					<option value="király">Király</option>
+					<option value="lovag">Lovag</option>
+				</select>
+			</div>
+			<div>
+				<label>Vegetáriánus</label>
+				<input type="checkbox" name="vegetarianus" id="vegetarianus" value="1">
+			</div>
+			<div  class="form-action-buttons">
+				<input type="submit" value="Mentés">
+			</div>
+		</form>
+	</div>
+	<br/>
+	<div class = "pizza-table">
+		<table class="list" id="pizzaList">
+			<thead>
+				<tr>
+					<th>Megnevezés</th>
+					<th>Kategória</th>
+					<th>Vegetáriánus</th>
+					<th>Ár</th>
+				</tr>
+			</thead>
+			<tbody>
+
+			</tbody>
+		</table>
+	</div>
+    <script src="jscrud.js"></script>
+</body>
+</html>
