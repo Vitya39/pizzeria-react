@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UserTable from "/src/tables/UserTable";
+import UserTable from "/src/UserTable";
 import EditUserForm from "/src/EditUserForm";
 import AddUserForm from "/src/AddUserForm";
 
@@ -37,7 +37,7 @@ const App = () => {
       <div className="flex-row">
         <div className="flex-large">
           <div>
-              <h2>{editing ? "Edit user" : "Add user"}</h2>
+              <h2>{editing ? "Módosítás" : "Felhasználó hozzáadása"}</h2>
               {editing ? (
                 <EditUserForm
                   editing={editing}
@@ -60,7 +60,7 @@ const App = () => {
           </div>
         </div>
         <div className="flex-large">
-          <h2>View users</h2>
+          <h2>Felhasználók megtekintése</h2>
           <UserTable users={users} editRow={editRow} deleteUser={deleteUser} />
         </div>
       </div>

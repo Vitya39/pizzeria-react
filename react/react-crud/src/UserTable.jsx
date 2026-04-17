@@ -4,9 +4,9 @@ const UserTable = props => (
   <table className="table table-striped">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Username</th>
-        <th>Actions</th>
+        <th>Név</th>
+        <th>Felhasználónév</th>
+        <th>Műveletek</th>
       </tr>
     </thead>
     <tbody>
@@ -23,7 +23,7 @@ const UserTable = props => (
         ))
       ) : (
         <tr>
-          <td colSpan={3}>No users</td>
+          <td colSpan={3}>Nincs felhasználó</td>
         </tr>
       )}
     </tbody>

@@ -22,11 +22,11 @@ const AddUserForm = props => {
         resetAddUser();
       }}
     >
-      <label>Name</label>
+      <label>Név</label>
       <input type="text" name="name" value={user.name} onChange={handleInputChange} className="form-control"/>
-      <label>Username</label>
+      <label>Felhasználónév</label>
       <input type="text" name="username" value={user.username} onChange={handleInputChange} className="form-control"/>
-      <button className="btn btn-primary">Add user</button>
+      <button className="btn btn-primary">Felhasználó hozzáadása</button>
     </form>
   );
 };
