@@ -15,10 +15,10 @@ function App() {
                 <button onClick={() => setMenu("Todo")}>Feladatok</button>
                 <button onClick={() => setMenu("calculator")}>Számológép</button>
             </nav>
+            <h1><center><a href="index.html">Vissza a Főoldalra</a></center></h1>
             <hr />
             {menu === "Todo" && <Todo />}
             {menu === "calculator" && <Calculator />}
-            <h1><center><a href="index.html">Vissza a Főoldalra</a></center></h1>
     </div>
   );
 }
