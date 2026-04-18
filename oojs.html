@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OOJS</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/pizzaaaa.css">
+    <script type="text/javascript" src="js/oojs.js">
+    </script>
+    <script type="text/javascript">
+        var objects = [];
+        objects.push(new Pizza('Bence kedvence', 'király', true, 1250));
+        objects.push(new Feltétek('Jobbágy', 'király', false, 1250, true, true, false, true, false));
+        objects.push(new Feltétek('Pacalos lovag', 'lovag', false, 1150, true, true, true, true, true));
+        console.log(objects);
+    </script>
+    <style>
+        caption {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        table {
+            margin-bottom: 20px;
+        }
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <table border="1">
+        <caption>Kezdő tábla</caption>
+        <tr><th>Név</th><th>Kategória</th><th>Vegetáriánus</th><th>Ár</th><th>Hagyma</th><th>Sajt</th><th>Szalonna</th><th>Gomba</th><th>Kukorica</th></tr>
+        <script type="text/javascript">
+        document.write("<tr><td>"+objects[0].nev+"</td><td>"+objects[0].kat+"</td><td>"+objects[0].veget+"</td><td>"+objects[0].ár+"</td><td>"+objects[0].hagyma+"</td><td>"+objects[0].sajt+"</td><td>"+objects[0].szalonna+"</td><td>"+objects[0].gomba+"</td><td>"+objects[0].kukorica+"</td></tr>");
+        document.write("<tr><td>"+objects[1].nev+"</td><td>"+objects[1].kat+"</td><td>"+objects[1].veget+"</td><td>"+objects[1].ár+"</td><td>"+objects[1].hagyma+"</td><td>"+objects[1].sajt+"</td><td>"+objects[1].szalonna+"</td><td>"+objects[1].gomba+"</td><td>"+objects[1].kukorica+"</td></tr>");
+        document.write("<tr><td>"+objects[2].nev+"</td><td>"+objects[2].kat+"</td><td>"+objects[2].veget+"</td><td>"+objects[2].ár+"</td><td>"+objects[2].hagyma+"</td><td>"+objects[2].sajt+"</td><td>"+objects[2].szalonna+"</td><td>"+objects[2].gomba+"</td><td>"+objects[2].kukorica+"</td></tr>");
+        </script>
+    </table>
+    <script type="text/javascript">
+        objects[0].arModosit(100);
+        objects[2].arModosit(50);
+        objects[0].feltetModosit(false, true, false, true, false);        
+        objects[1].feltetModosit(true , false, true, false, true);
+        objects[2].feltetModosit(false, false, false, false, false);
+    </script>
+    <br>
+    <table border="1">
+        <caption>Módosítások utáni tábla</caption>
+        <tr><th>Név</th><th>Kategória</th><th>Vegetáriánus</th><th>Ár</th><th>Hagyma</th><th>Sajt</th><th>Szalonna</th><th>Gomba</th><th>Kukorica</th></tr>
+        <script type="text/javascript">
+        document.write("<tr><td>"+objects[0].nev+"</td><td>"+objects[0].kat+"</td><td>"+objects[0].veget+"</td><td>"+objects[0].ár+"</td><td>"+objects[0].hagyma+"</td><td>"+objects[0].sajt+"</td><td>"+objects[0].szalonna+"</td><td>"+objects[0].gomba+"</td><td>"+objects[0].kukorica+"</td></tr>");
+        document.write("<tr><td>"+objects[1].nev+"</td><td>"+objects[1].kat+"</td><td>"+objects[1].veget+"</td><td>"+objects[1].ár+"</td><td>"+objects[1].hagyma+"</td><td>"+objects[1].sajt+"</td><td>"+objects[1].szalonna+"</td><td>"+objects[1].gomba+"</td><td>"+objects[1].kukorica+"</td></tr>");
+        document.write("<tr><td>"+objects[2].nev+"</td><td>"+objects[2].kat+"</td><td>"+objects[2].veget+"</td><td>"+objects[2].ár+"</td><td>"+objects[2].hagyma+"</td><td>"+objects[2].sajt+"</td><td>"+objects[2].szalonna+"</td><td>"+objects[2].gomba+"</td><td>"+objects[2].kukorica+"</td></tr>");
+        </script>
+    </table>
+    <footer><h1><center><a href="index.html">Vissza a Főoldalra</a></center></h1></footer>
+</body>
+</html>
