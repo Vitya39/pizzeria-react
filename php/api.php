@@ -27,7 +27,7 @@ $input = json_decode(file_get_contents('php://input'), true);
 
 switch ($method) {
     case 'GET':
-        $stmt = $pdo->query('SELECT * FROM users ORDER BY id DESC');
+        $stmt = $pdo->query('SELECT * FROM felhasznalok ORDER BY id DESC');
         $users = $stmt->fetchAll();
         echo json_encode($users);
         break;
@@ -37,7 +37,7 @@ switch ($method) {
             
             $hashed_jelszo = sha1($input['jelszo']);
 
-            $sql = "INSERT INTO users (csaladi_nev, uto_nev, bejelentkezes, jelszo) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO felhasznalok (csaladi_nev, uto_nev, bejelentkezes, jelszo) VALUES (?, ?, ?, ?)";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$input['csaladi_nev'], $input['uto_nev'], $input['bejelentkezes'], $hashed_jelszo]);
             echo json_encode(['message' => 'User created successfully', 'id' => $pdo->lastInsertId()]);
@@ -49,7 +49,7 @@ switch ($method) {
             
             $hashed_jelszo = sha1($input['jelszo']);
 
-            $sql = "UPDATE users SET csaladi_nev = ?, uto_nev = ?, bejelentkezes = ?, jelszo = ? WHERE id = ?";
+            $sql = "UPDATE felhasznalok SET csaladi_nev = ?, uto_nev = ?, bejelentkezes = ?, jelszo = ? WHERE id = ?";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$input['csaladi_nev'], $input['uto_nev'], $input['bejelentkezes'], $hashed_jelszo, $input['id']]);
             echo json_encode(['message' => 'User updated successfully']);
@@ -58,7 +58,7 @@ switch ($method) {
 
     case 'DELETE':
         if (isset($input['id'])) {
-            $sql = "DELETE FROM users WHERE id = ?";
+            $sql = "DELETE FROM felhasznalok WHERE id = ?";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$input['id']]);
             echo json_encode(['message' => 'User deleted successfully']);

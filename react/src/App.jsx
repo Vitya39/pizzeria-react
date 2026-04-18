@@ -18,6 +18,7 @@ function App() {
             <hr />
             {menu === "Todo" && <Todo />}
             {menu === "calculator" && <Calculator />}
+            <h1><center><a href="index.html">Vissza a Főoldalra</a></center></h1>
     </div>
   );
 }
