@@ -1,4 +1,7 @@
 <?php
+try{
+
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
@@ -18,7 +21,7 @@ $options = [
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 } catch (\PDOException $e) {
-    echo json_encode(["error" => "Database connection failed"]);
+    echo json_encode(["error" => "Adattábázis kapcsolat sikertelen: " . $e->getMessage()]);
     exit;
 }
 
@@ -27,42 +30,39 @@ $input = json_decode(file_get_contents('php://input'), true);
 
 switch ($method) {
     case 'GET':
-        $stmt = $pdo->query('SELECT * FROM felhasznalok ORDER BY id DESC');
+        $stmt = $pdo->query('SELECT * FROM pizza ORDER BY nev');
         $users = $stmt->fetchAll();
         echo json_encode($users);
         break;
 
     case 'POST':
-        if (isset($input['csaladi_nev']) && isset($input['uto_nev']) && isset($input['bejelentkezes']) && isset($input['jelszo'])) {
-            
-            $hashed_jelszo = sha1($input['jelszo']);
-
-            $sql = "INSERT INTO felhasznalok (csaladi_nev, uto_nev, bejelentkezes, jelszo) VALUES (?, ?, ?, ?)";
+        if (isset($input['nev']) && isset($input['kategorianev']) && isset($input['vegetarianus'])) {
+            $sql = "INSERT INTO pizza (nev, kategorianev, vegetarianus) VALUES (?, ?, ?)";
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([$input['csaladi_nev'], $input['uto_nev'], $input['bejelentkezes'], $hashed_jelszo]);
-            echo json_encode(['message' => 'User created successfully', 'id' => $pdo->lastInsertId()]);
+            $stmt->execute([$input['nev'], $input['kategorianev'], $input['vegetarianus']]);
+            echo json_encode(['message' => 'Pizza sikeresen létrehozva']);
         }
         break;
 
     case 'PUT':
-        if (isset($input['id']) && isset($input['csaladi_nev']) && isset($input['uto_nev']) && isset($input['bejelentkezes']) && isset($input['jelszo'])) {
-            
-            $hashed_jelszo = sha1($input['jelszo']);
-
-            $sql = "UPDATE felhasznalok SET csaladi_nev = ?, uto_nev = ?, bejelentkezes = ?, jelszo = ? WHERE id = ?";
+        if (isset($input['nev']) && isset($input['kategorianev']) && isset($input['vegetarianus']) && isset($input['originalNev'])) {
+            $sql = "UPDATE pizza SET nev = ?, kategorianev = ?, vegetarianus = ? WHERE nev = ?";
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([$input['csaladi_nev'], $input['uto_nev'], $input['bejelentkezes'], $hashed_jelszo, $input['id']]);
-            echo json_encode(['message' => 'User updated successfully']);
+            $stmt->execute([$input['nev'], $input['kategorianev'], $input['vegetarianus'], $input['originalNev']]);
+            echo json_encode(['message' => 'Pizza sikeresen frissítve']);
         }
         break;
 
     case 'DELETE':
-        if (isset($input['id'])) {
-            $sql = "DELETE FROM felhasznalok WHERE id = ?";
+        if (isset($input['nev'])) {
+            $sql = "DELETE FROM pizza WHERE nev = ?";
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([$input['id']]);
-            echo json_encode(['message' => 'User deleted successfully']);
+            $stmt->execute([$input['nev']]);
+            echo json_encode(['message' => 'Pizza sikeresen törölve']);
         }
         break;
+}
+} catch (Exception $e) {
+    echo $e;
 }
 ?>

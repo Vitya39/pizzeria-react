@@ -1,113 +1,105 @@
 const API_URL = '../php/api.php';
 
-const userForm = document.getElementById('userForm');
-const userTableBody = document.getElementById('userTableBody');
+const pizzaForm = document.getElementById('pizzaForm');
+const pizzaTableBody = document.getElementById('pizzaTableBody');
 const saveBtn = document.getElementById('saveBtn');
 const cancelBtn = document.getElementById('cancelBtn');
 const formTitle = document.getElementById('formTitle');
 
-const userIdInput = document.getElementById('userId');
-const csaladiNevInput = document.getElementById('csaladi_nev');
-const utoNevInput = document.getElementById('uto_nev');
-const bejelentkezesInput = document.getElementById('bejelentkezes');
-const jelszoInput = document.getElementById('jelszo');
+const pizzaNevInput = document.getElementById('nev');
+const pizzaKategoriaInput = document.getElementById('kategoria');
+const pizzaVegetarianusInput = document.getElementById('vegetarianus');
+const originalNevInput = document.getElementById('originalNev');
 
-document.addEventListener('DOMContentLoaded', fetchUsers);
+document.addEventListener('DOMContentLoaded', fetchPizzak);
 
-async function fetchUsers() {
+async function fetchPizzak() {
     try {
         const response = await fetch(API_URL, { method: 'GET' });
-        const users = await response.json();
+        const pizzak = await response.json();
         
-        userTableBody.innerHTML = '';
-        users.forEach(user => {
+        pizzaTableBody.innerHTML = '';
+        pizzak.forEach(pizza => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${user.id}</td>
-                <td>${user.csaladi_nev}</td>
-                <td>${user.uto_nev}</td>
-                <td>${user.bejelentkezes}</td>
-                <td>********</td> <td class="text-center">
-                    <button class="btn btn-sm btn-warning me-1" onclick="editUser(${user.id}, '${user.csaladi_nev}', '${user.uto_nev}', '${user.bejelentkezes}', '${user.jelszo}')">Szerkesztés</button>
-                    <button class="btn btn-sm btn-danger" onclick="deleteUser(${user.id})">Törlés</button>
+                <td>${pizza.nev}</td>
+                <td>${pizza.kategorianev}</td>
+                <td>${pizza.vegetarianus}</td><td class="text-center">
+                    <button class="btn btn-sm btn-warning me-1" onclick="editPizza('${pizza.nev}', '${pizza.kategorianev}', '${pizza.vegetarianus}')">Szerkesztés</button>
+                    <button class="btn btn-sm btn-danger" onclick="deletePizza('${pizza.nev}')">Törlés</button>
                 </td>
             `;
-            userTableBody.appendChild(tr);
+            pizzaTableBody.appendChild(tr);
         });
     } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error('Error fetching pizzak:', error);
     }
 }
 
-userForm.addEventListener('submit', async (e) => {
+pizzaForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const id = userIdInput.value;
-    const userData = {
-        csaladi_nev: csaladiNevInput.value,
-        uto_nev: utoNevInput.value,
-        bejelentkezes: bejelentkezesInput.value,
-        jelszo: jelszoInput.value
+    const originalNev = originalNevInput.value;
+    const pizzaData = {
+        nev: pizzaNevInput.value,
+        kategorianev: pizzaKategoriaInput.value,
+        vegetarianus: pizzaVegetarianusInput.value
     };
 
+    if (originalNev) {
+        pizzaData.originalNev = originalNev;
+    }
+
     try {
-        if (id) {
-            // UPDATE (PUT)
-            userData.id = id;
-            await fetch(API_URL, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userData)
-            });
-        } else {
-            // CREATE (POST)
-            await fetch(API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userData)
-            });
-        }
+        const method = originalNev ? 'PUT' : 'POST';
+        await fetch(API_URL, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(pizzaData)
+        });
         
         resetForm();
-        fetchUsers();
+        fetchPizzak();
     } catch (error) {
-        console.error('Error saving user:', error);
+        console.error('Error saving pizza:', error);
     }
 });
 
-async function deleteUser(id) {
-    if (confirm('Biztosan törölni szeretnéd ezt a felhasználót?')) {
+async function deletePizza(nev) {
+    if (confirm('Biztosan törölni szeretnéd ezt a pizzát?')) {
         try {
             await fetch(API_URL, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: id })
+                body: JSON.stringify({ nev: nev })
             });
-            fetchUsers();
+            fetchPizzak();
         } catch (error) {
-            console.error('Error deleting user:', error);
+            console.error('Sikertelen törlés:', error);
         }
     }
 }
 
-function editUser(id, csaladi_nev, uto_nev, bejelentkezes, jelszo) {
-    userIdInput.value = id;
-    csaladiNevInput.value = csaladi_nev;
-    utoNevInput.value = uto_nev;
-    bejelentkezesInput.value = bejelentkezes;
-    jelszoInput.value = jelszo;
+function editPizza(nev, kategorianev, vegetarianus) {
+    originalNevInput.value = nev;
+    pizzaNevInput.value = nev;
+    pizzaKategoriaInput.value = kategorianev;
+    pizzaVegetarianusInput.value = vegetarianus;
     
-    formTitle.textContent = 'Felhasználó Szerkesztése';
+    formTitle.textContent = 'Pizza Szerkesztése';
     saveBtn.textContent = 'Frissítés';
     saveBtn.classList.replace('btn-success', 'btn-warning');
     cancelBtn.classList.remove('d-none');
 }
 
 function resetForm() {
-    userIdInput.value = '';
-    userForm.reset();
+    originalNevInput.value = '';
+    pizzaNevInput.value = '';
+    pizzaKategoriaInput.value = '';
+    pizzaVegetarianusInput.value = '';
+    pizzaForm.reset();
     
-    formTitle.textContent = 'Új Felhasználó';
+    formTitle.textContent = 'Új Pizza';
     saveBtn.textContent = 'Mentés';
     saveBtn.classList.replace('btn-warning', 'btn-success');
     cancelBtn.classList.add('d-none');
