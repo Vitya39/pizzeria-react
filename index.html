@@ -10,32 +10,35 @@
   <style>
   .img {
     height: 200px;
-    background: #aaa;
   }
   .img img {
+    height: 200px;
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  body {
+    background-image: url('img/hatter.jpg');
+    background-size: cover;
   }
   </style>
 </head>
 <body>
 
   <div class="jumbotron text-center" style="margin-bottom:0">
-    <h1>Pizzéria</h1>
-    <br><p>Made by</p>
-    <p>Butor Bence, Nagy Viktor</p> 
+    <h1>Web programozás-1 Előadás Házi feladat</h1>
+    <header>Butor Bence (HMIK2Y), Nagy Viktor (D7GZCG)</header> 
   </div>
 
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <a class="navbar-brand" href="#">Főoldal</a>
+    <a class="navbar-brand" href="index.html">Főoldal</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="react.html">React CRUD</a>
+          <a class="nav-link" href="http://localhost:5173">React CRUD</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="javascript.html">Java CRUD</a>
@@ -50,7 +53,7 @@
           <a class="nav-link" href="axios.html">Axios</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="bootstrap.html">Bootstrap</a>
+          <a class="nav-link" href="oojs.html">OOJS</a>
         </li>
       </ul>
     </div>  
@@ -60,7 +63,7 @@
     <div class="row">
       <div class="col-sm-4">
         <h5>A gyönörű Pizzériánk:</h5>
-        <div class="img"><img src="pizerria.webp" alt="Pizzéria"></div>
+        <div class="img"><img src="img/pizerria.webp" alt="Pizzéria"></div>
         <p>A 5216. legjobb pizzázó a világon!</p>
         <h3>Egyéb (nem ilyen jó) pizzériák</h3>
         <p>(De tényleg nem ilyen jó)</p>
@@ -76,22 +79,21 @@
       </div>
       <div class="col-sm-8">
         <h2>Bemutatkozás</h2>
-        <h5>Gyurcsány jobb volt?</h5>
-        <div class="img"><img src="belgapizza.png" alt="Belga pizza"></div>
-        <p>Some text..</p>
-        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+        <h5>BenVik pizza</h5>
+        <div class="img"><img src="img/belgapizza.png" alt="Belga pizza"></div>
+        <p>A legjobb pizzázó a világon!</p>
+        <p>Insert Lorem ipsum helyetesítő szöveg</p>
         <br>
-        <h2>TITLE HEADING</h2>
-        <h5>Title description, Sep 2, 2017</h5>
-        <div class="img"><img src="legjobbpizza.jpg" alt="Belülről"></div>
-        <p>Some text..</p>
-        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+        <h2>Szöveg 421.</h2>
+        <div class="img"><img src="img/legjobbpizza.jpg" alt="Belülről"></div>
+        <p>Épült: 2025. április 15.</p>
+        <p>Insert Lorem ipsum helyetesítő szöveg</p>
       </div>
     </div>
   </div>
 
   <div class="jumbotron text-center" style="margin-bottom:0">
-    <p>Footer</p>
+    <footer>Butor Bence (HMIK2Y), Nagy Viktor (D7GZCG)</footer>
   </div>
 </body>
 </html>
