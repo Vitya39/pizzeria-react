@@ -1,6 +1,5 @@
-const API_URL = 'api.php';
+const API_URL = '../php/api.php';
 
-// DOM Elements
 const userForm = document.getElementById('userForm');
 const userTableBody = document.getElementById('userTableBody');
 const saveBtn = document.getElementById('saveBtn');
@@ -13,12 +12,8 @@ const utoNevInput = document.getElementById('uto_nev');
 const bejelentkezesInput = document.getElementById('bejelentkezes');
 const jelszoInput = document.getElementById('jelszo');
 
-// Load users initially
 document.addEventListener('DOMContentLoaded', fetchUsers);
 
-// -----------------------------
-// READ: Fetch Users (GET)
-// -----------------------------
 async function fetchUsers() {
     try {
         const response = await fetch(API_URL, { method: 'GET' });
@@ -44,9 +39,6 @@ async function fetchUsers() {
     }
 }
 
-// -----------------------------
-// CREATE & UPDATE (POST / PUT)
-// -----------------------------
 userForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -83,9 +75,6 @@ userForm.addEventListener('submit', async (e) => {
     }
 });
 
-// -----------------------------
-// DELETE (DELETE)
-// -----------------------------
 async function deleteUser(id) {
     if (confirm('Biztosan törölni szeretnéd ezt a felhasználót?')) {
         try {
@@ -101,7 +90,6 @@ async function deleteUser(id) {
     }
 }
 
-// Helper: Populate form for updating
 function editUser(id, csaladi_nev, uto_nev, bejelentkezes, jelszo) {
     userIdInput.value = id;
     csaladiNevInput.value = csaladi_nev;
@@ -115,7 +103,6 @@ function editUser(id, csaladi_nev, uto_nev, bejelentkezes, jelszo) {
     cancelBtn.classList.remove('d-none');
 }
 
-// Helper: Reset form to default state
 function resetForm() {
     userIdInput.value = '';
     userForm.reset();
