@@ -32,7 +32,7 @@ const App = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container">          
       <h1>CRUD</h1>
       <div className="flex-row">
         <div className="flex-large">
@@ -65,6 +65,7 @@ const App = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 export default App;
