@@ -1,45 +1,89 @@
-class Pizza {
-    constructor(nev, kat, veget, ár) {
+class PizzaAlap {
+    constructor(nev) {
         this.nev = nev;
-        this.kat = kat;
-        this.veget = veget;
-        this.ár = ár;
+        this.emberMagassagCm = 180;
+        this.emberMagassagPx = 400;
     }
-    
-    arModosit(emeles) {
-        this.ár += emeles;
-    }
-    feltetModosit(hagyma, sajt, szalonna, gomba, kukorica) {
-        this.hagyma = hagyma;
-        this.sajt = sajt;
-        this.szalonna = szalonna;
-        this.gomba = gomba;
-        this.kukorica = kukorica;
+
+    getPixelArany() {
+        return this.emberMagassagPx / this.emberMagassagCm;
     }
 }
 
-class Feltétek extends Pizza {
-    constructor(nev, kat, veget, ár, hagyma, sajt, szalonna, gomba, kukorica) {
-        super(nev, kat, veget, ár);
-        this.hagyma = hagyma;
-        this.sajt = sajt;
-        this.szalonna = szalonna;
-        this.gomba = gomba;
-        this.kukorica = kukorica;
-    }    
-    hagyma(hagyma) {
-        this.hagyma = hagyma;
+class PizzaAranyosito extends PizzaAlap {
+    constructor(nev) {
+        super(nev);
+        this.pizzaKep = null;
+        this.meretValaszto = null;
+        this.infoSzoveg = null;
     }
-    sajt(sajt) {
-        this.sajt = sajt;
+
+    megjelenit() {
+        const foKontener = document.createElement('div');
+        foKontener.className = 'container text-center mt-5';
+
+        const cim = document.createElement('h1');
+        cim.innerText = `${this.nev} - Arányosító`;
+        foKontener.appendChild(cim);
+
+        const vezerloKontener = document.createElement('div');
+        vezerloKontener.className = 'my-4 d-flex justify-content-center gap-3';
+
+        this.meretValaszto = document.createElement('select');
+        this.meretValaszto.className = 'form-select w-auto';
+        [26, 32, 50].forEach(meret => {
+            const opcio = document.createElement('option');
+            opcio.value = meret;
+            opcio.innerText = `${meret} cm`;
+            if (meret === 32) opcio.selected = true;
+            this.meretValaszto.appendChild(opcio);
+        });
+        vezerloKontener.appendChild(this.meretValaszto);
+
+        const gomb = document.createElement('button');
+        gomb.className = 'btn btn-warning';
+        gomb.innerText = 'Méret módosítása';
+        gomb.onclick = () => this.frissitKepet();
+        vezerloKontener.appendChild(gomb);
+
+        foKontener.appendChild(vezerloKontener);
+
+        this.infoSzoveg = document.createElement('h4');
+        this.infoSzoveg.className = 'text-info mb-4';
+        foKontener.appendChild(this.infoSzoveg);
+
+        const kepekKontener = document.createElement('div');
+        kepekKontener.className = 'd-flex align-items-end justify-content-center border-bottom pb-3';
+        kepekKontener.style.height = '450px';
+
+        const emberKep = document.createElement('img');
+        emberKep.src = 'img/ember.jpg';
+        emberKep.style.height = `${this.emberMagassagPx}px`;
+        emberKep.style.marginRight = '50px';
+        kepekKontener.appendChild(emberKep);
+
+        this.pizzaKep = document.createElement('img');
+        this.pizzaKep.src = 'img/pizza.png';
+        this.pizzaKep.style.transition = 'width 0.5s ease, height 0.5s ease';
+        kepekKontener.appendChild(this.pizzaKep);
+
+        foKontener.appendChild(kepekKontener);
+
+        document.body.appendChild(foKontener);
+
+        this.frissitKepet();
     }
-    szalonna(szalonna) {
-        this.szalonna = szalonna;
-    }
-    gomba(gomba) {
-        this.gomba = gomba;
-    }
-    kukorica(kukorica) {
-        this.kukorica = kukorica;
+
+    frissitKepet() {
+        const kivalasztottMeretCm = parseInt(this.meretValaszto.value);
+        const pixelMeret = kivalasztottMeretCm * this.getPixelArany();
+        this.pizzaKep.style.width = `${pixelMeret}px`;
+        this.pizzaKep.style.height = `${pixelMeret}px`;
+        this.infoSzoveg.innerText = `A pizza átmérője: ${kivalasztottMeretCm} cm (Ember: 180 cm)`;
     }
 }
+
+window.onload = function () {
+    const alkalmazas = new PizzaAranyosito("Interaktív Pizzéria");
+    alkalmazas.megjelenit();
+};
